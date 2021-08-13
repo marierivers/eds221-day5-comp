@@ -43,16 +43,16 @@ Add line-by-line comments wheres prompted in the code below, explaining what eac
 # ------ WHAT HAPPENS HERE? ------ #
 # ------ comment line-by-line ---- #
 
-# The line below...
+# The line below...creates the time vector for all time steps we want to calculate, starting at year 0, and increasing by 1 year until year 8; a vector from 0 to 8, counting by 1
 time_yr <- seq(from = 0, to = 8, by = 1)
 
-# The line below...
+# The line below...sets up a matrix, with columns for each variable and rows for each time step. this matrix will be used to store output data
 proj_year <- matrix(ncol = length(fish_year0), nrow = length(time_yr))
 
-# The line below...
+# The line below...populates initial condition data to the first row of the output vector; [row, column]...for row 1, across all columns
 proj_year[1, ] <- fish_year0
 
-# The for loop below...
+# The for loop below...for each year in the time vector, calculate the DOT PROTUCT of leslie matrix using the previous years results and output from the previous year. The for loop starts at index 2 because we already know the output for i = 0. We populate row i = 2 first. The [i,] term says to populate data in the row at index i
 for (i in 2:length(time_yr)) {
   proj_year[i,] <- fish_leslie %*% proj_year[i-1,]
 }
